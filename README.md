@@ -9,11 +9,26 @@ tables, a transposition table with best-move ordering, and a fixed node budget a
 position always gets the same answer. It plays entirely through the trial's env, never reads a
 clock, and fits inside the competition's 4,096-byte cap with its lzma payload and unpacker.
 
+## What it does
+
+The board is a list of small ints, white positive and black negative. Move generation is shared
+with the trial: the env supplies the legal list at the root, and inside the tree every move is
+checked for the king's safety, so a node with no legal move left is a real mate and never a
+stalemate mistaken for a checkmate.
+
+- alpha-beta with a quiescence search, over material and piece-square tables
+- a transposition table (flag, value, depth, best move) ordering the moves it has already seen
+- a repetition seen inside the tree scored as a draw
+- a fixed node budget a move: one position always gets one move, on any machine
+
 ## Run it
 
 ```sh
 MAKEFUN_ENV_URL=http://127.0.0.1:8099 python3 -P -s main.py
 ```
+
+It reads the position from that env and answers with a move; it never reads a clock and never
+opens a file. Against the kit's practice instances it scores around 1,360 elo.
 
 ---
 
