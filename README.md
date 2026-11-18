@@ -23,6 +23,8 @@ stalemate mistaken for a checkmate.
 - one node budget for a whole move rather than one per depth, so its seconds do not add up
 - a cap on how deep captures may chain, so the slowest move's tail stays away from the clock
 - a fixed node budget a move: one position always gets one move, on any machine
+- a 150,000-node budget a move, the largest that kept every move of a practice trial a few
+  seconds, well under the 10-second move limit a replay would otherwise decide
 
 ## Run it
 
@@ -31,7 +33,8 @@ MAKEFUN_ENV_URL=http://127.0.0.1:8099 python3 -P -s main.py
 ```
 
 It reads the position from that env and answers with a move; it never reads a clock and never
-opens a file. Against the kit's practice instances it scores 997 to 1,364 elo, a mean of 1,213 over the three.
+opens a file. Against the kit's practice instances it scores 997 to 1,364 elo, a mean of 1,213
+over the three.
 
 ---
 
